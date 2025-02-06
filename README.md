@@ -15,7 +15,7 @@ This project is an **online store for freelance designers and buyers of designs*
 - Manage designs (edit, delete)
 
 ### 3. Buyers
-- View and filter designs
+- View and search designs
 - Purchase designs and add them to their purchase list
 - View previous purchases with details
 - Increase account balance for purchasing designs
