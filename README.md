@@ -39,5 +39,7 @@ Before starting, ensure the following are installed:
 1. **Clone the project**
    First, clone the project from **GitHub**:
    ```bash
-   git clone https://github.com/username/repository.git
+   git clone https://github.com/baranbabaei/Dribbble-project
    cd repository
+
+   
