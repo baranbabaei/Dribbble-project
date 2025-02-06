@@ -42,5 +42,7 @@ Before starting, ensure the following are installed:
    git clone https://github.com/baranbabaei/Dribbble-project
    cd repository
 
+2.**Install dependencies Since the project uses Python, you need to install the dependencies:**
+  ```bash
    pip install -r requirements.txt
 
