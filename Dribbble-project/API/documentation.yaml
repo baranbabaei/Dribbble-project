@@ -1,0 +1,1521 @@
+openapi: 3.0.3
+info:
+  title: Store Management
+  description: |-
+    This is the API documentation for Store Management project based on the OpenAPI 3.0 specification.
+
+  license:
+    name: Apache 2.0
+   
+  version: 0.0.1
+
+servers:
+  - url: http://127.0.0.1:5000
+tags:
+  - name: order
+    description: Everything about Orders
+  - name: customer
+    description: Everything about Customers
+  - name: seller
+    description: Everything about Sellers
+  - name: product
+    description: Everything about Products
+  - name: login
+    description: Everything about Authentication
+  - name: admin
+    description: Everything about Admin
+  - name: image
+    description: Everything about Image
+  - name: payment
+    description: Everything about Payment
+  - name: category
+    description: Everything about Category
+paths:
+  /order:
+    post:
+      tags:
+        - order
+      summary: new order
+      description: Place a new order in the store
+      operationId: addOrder
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Place a new order in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrder'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - order
+      summary: get orders
+      description: get orders
+      operationId: getOrders
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /order/{id}:
+    get:
+      tags:
+        - order
+      summary: get order
+      description: get order
+      operationId: getOrder
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The order ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /customer:
+    post:
+      tags:
+        - customer
+      summary: new customer
+      description: Create new customer in the store
+      operationId: addCustomer
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addCustomer'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - customer
+      summary: get customers
+      description: get customers
+      operationId: getCustomers
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          required: false
+          description: per_page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /customer/{id}:
+    put:
+      tags:
+        - customer
+      summary: update customer
+      description: Update customer in the store
+      operationId: updateCustomer
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The customer ID
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addCustomer'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - customer
+      summary: get customer
+      description: get customer
+      operationId: getCustomer
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The customer ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+        - customer
+      summary: delete customers
+      description: delete customers
+      operationId: deleteCustomers
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The customer ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Seller not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /seller:
+    post:
+      tags:
+        - seller
+      summary: new seller
+      description: Create new seller in the store
+      operationId: addSeller
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addSeller'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - seller
+      summary: get sellers
+      description: get sellers
+      operationId: getSellers
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          required: false
+          description: per_page
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /seller/{id}:
+    put:
+      tags:
+        - seller
+      summary: update seller
+      description: Update seller in the store
+      operationId: updateSeller
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The seller ID
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addSeller'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Seller not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - seller
+      summary: get seller
+      description: get seller
+      operationId: getSeller
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The seller ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seller'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Seller not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+        - seller
+      summary: delete seller
+      description: delete seller
+      operationId: deleteSeller
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The seller ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Seller not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /product:
+    post:
+      tags:
+        - product
+      summary: new product
+      description: Create new product in the store
+      operationId: addProduct
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: page
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          required: false
+          description: per_page
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addProduct'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - product
+      summary: get products
+      description: get products
+      operationId: getProducts
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /product/{id}:
+    put:
+      tags:
+        - product
+      summary: update product
+      description: Update product in the store
+      operationId: updateProduct
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The product ID
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/addProduct'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - product
+      summary: get product
+      description: get product
+      operationId: getProduct
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The product ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+        - product
+      summary: delete product
+      description: delete product
+      operationId: deleteProduct
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The product ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Seller not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /login:
+    post:
+      tags:
+        - login
+      summary: login
+      description: login
+      operationId: login
+      requestBody:
+        description: Authenticate a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResp'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '401':
+          description: Wrong username or password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /admin:
+    put:
+      tags:
+        - admin
+      summary: edit admin
+      description: edit admin user & pass
+      operationId: edit admin
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: edit admin
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditAdmin'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /payment:
+    post:
+      tags:
+        - payment
+      summary: payment
+      description: payment
+      operationId: payment
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Add Payment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    get:
+      tags:
+        - payment
+      summary: get Payments
+      description: get Payments
+      operationId: get Payment
+      parameters:
+        - in: header
+          name: x-access-token
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentResp'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /payment/{payment_id}:
+      get:
+        tags:
+          - payment
+        summary: get a Payment
+        description: get a Payment
+        operationId: get a Payment
+        parameters:
+          - in: header
+            name: x-access-token
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: payment_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description: The Payment ID
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PaymentResp'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '500':
+            description: Internal error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+  /image/{kind}/{name}:
+    get:
+      tags:
+        - image
+      summary: image
+      description: image
+      operationId: image
+      parameters:
+        - in: path
+          name: kind
+          required: true
+          schema:
+            type: string
+            enum:
+              - "customer"
+              - "seller"
+              - "product"
+          description: The Kind of Image
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: File name
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /category/{category_id}:
+      get:
+        tags:
+          - category
+        summary: get a category
+        description: get a category
+        operationId: get a category
+        parameters:
+          - in: header
+            name: x-access-token
+            schema:
+              type: string
+            required: false
+          - in: path
+            name: category_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description: The Category ID
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Category'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '404':
+            description: Category not found
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '500':
+            description: Internal error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+      put:
+        tags:
+          - category
+        summary: edit category
+        description: edit category
+        operationId: edit category
+        parameters:
+          - in: header
+            name: x-access-token
+            schema:
+              type: string
+            required: true
+          - in: path
+            name: category_id
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+            description: The Category ID
+        requestBody:
+          description: Edit Category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddCategory'
+          required: true
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '500':
+            description: Internal error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+  /category:
+      get:
+        tags:
+          - category
+        summary: get categories
+        description: get categories
+        operationId: get categories
+        parameters:
+          - in: header
+            name: x-access-token
+            schema:
+              type: string
+            required: false
+          - in: query
+            name: page
+            schema:
+              type: integer
+            required: false
+            description: page
+          - in: query
+            name: per_page
+            schema:
+              type: integer
+            required: false
+            description: per_page
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Category'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '500':
+            description: Internal error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+      post:
+        tags:
+          - category
+        summary: create category
+        description: create category
+        operationId: create category
+        parameters:
+          - in: header
+            name: x-access-token
+            schema:
+              type: string
+            required: true
+        requestBody:
+          description: Add Category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddCategory'
+          required: true
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+          '500':
+            description: Internal error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    addOrder:
+      required:
+        - seller_id
+        - customer_id
+        - products
+      type: object
+      properties:
+        seller_id:
+          type: integer
+          example: 1
+        customer_id:
+          type: integer
+          example: 1
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              quantity:
+                type: integer
+                example: 1
+    EditAdmin:
+      required:
+        - username
+        - old_password
+        - new_password
+        - confirm_new_password
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'admin'
+        old_password:
+          type: string
+          example: '123456'
+        new_password:
+          type: string
+          example: '123456'
+        confirm_new_password:
+          type: string
+          example: '123456'
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        seller_id:
+          type: integer
+          example: 1
+        customer_id:
+          type: integer
+          example: 1
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              quantity:
+                type: integer
+                example: 1
+        total_price:
+          type: number
+          example: 10
+        date:
+          type: number
+          example: 1669315706.634264
+    addCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Ali"
+        phone_number:
+          type: string
+          example: "0912312345"
+        credit:
+          type: number
+          example: 10.5
+        file:
+          type: string
+          format: binary
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Ali"
+        credit:
+          type: number
+          example: 1000
+        join_date:
+          type: number
+          example: 1669315706.634264
+        is_active:
+          type: boolean
+          example: true
+        phone_number:
+          type: string
+          example: "01232312342"
+        profile_photo_link:
+          type: string
+          example: "http://127.0.0.1/image/customer/1.jpg"
+    addSeller:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Ali"
+        username:
+          type: string
+          example: "ali_ahmadi"
+        password:
+          type: string
+          example: "12345"
+        new_password:
+          type: string
+          example: "12345"
+        file:
+          type: string
+          format: binary
+    Seller:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Ali"
+        username:
+          type: string
+          example: "ali_ahmadi"
+        is_active:
+          type: boolean
+          example: true
+        profile_photo_link:
+          type: string
+          example: "http://127.0.0.1/image/seller/1.jpg"
+    addProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Ali"
+        category_id:
+          type: integer
+          example: 0
+        price:
+          type: number
+          example: 10.5
+        file:
+          type: string
+          format: binary
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Ali"
+        category_id:
+          type: integer
+          example: 0
+        price:
+          type: number
+          example: 10.5
+        is_active:
+          type: boolean
+          example: true
+        profile_photo_link:
+          type: string
+          example: "http://127.0.0.1/image/product/1.jpg"
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "ali"
+        password:
+          type: string
+          example: "1234"
+    PaymentResp:
+      type: object
+      properties:
+        customer_name:
+          type: string
+          example: 'ali'
+        payer_name:
+          type: string
+          example: 'hassan'
+        payer_phone_number:
+          type: string
+          example: '01232312342'
+        payer_id:
+          type: integer
+          example: '1'
+        customer_id:
+          type: integer
+          example: '1'
+        method:
+          type: integer
+          example: '1'
+        amount:
+          type: number
+          example: '15'
+        date:
+          type: number
+          example: 1669315706.634264
+    Payment:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'hassan'
+        phone_number:
+          type: string
+          example: '09123251425'
+        customer_id:
+          type: integer
+          example: '1'
+        method:
+          type: integer
+          example: '1'
+        amount:
+          type: number
+          example: '1554.5'
+    LoginResp:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "123l1jo[o12jsad-12e[pwejas"
+        role:
+          type: string
+          enum:
+            - "seller"
+            - "admin"
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'دارو'
+        id:
+          type: integer
+          example: '1'
+    AddCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'دارو'
+    ApiResponse:
+      type: object
+      properties:
+        message:
+          type: "string"
+          enum:
+            - "<message>"
+            - "<key> is not defined in the json data."
+            - "CREDIT_NOT_ENOUGH"
+            - "INVALID_PASSWORD"
+            - "INVALID_USERNAME"
+            - "NOT_EXIST"
+            - "CATEGORY_NOT_EXIST"
+            - "NEGATIVE_PRICE"
+            - "SUCCESS"
+            - "ALREADY_EXISTS"
+            - "NEGATIVE_CREDIT"
+            - "EXPECTED_DATA"
+            - "ALREADY_LEFT"
+            - "HAS_DEBT"
+            - "NOT_IN_STOCK"
+            - "CUSTOMER_NOT_EXIST"
+            - "SELLER_NOT_ACTIVE"
+            - "NOT_EXIST"
+            - "TOKEN_MISSING"
+            - "INVALID_TOKEN"
+            - "TOKEN_EXPIRED"
+            - "EXPECTED_FILE"
+            - "EXPECTED_IMAGE"
+            - "EXPECTED_<key>"
+            - "INVALID_<key>"
+            - "WRONG_PASSWORD"
+            - "PASSWORDS_NOT_MATCH"
