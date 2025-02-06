@@ -42,4 +42,5 @@ Before starting, ensure the following are installed:
    git clone https://github.com/baranbabaei/Dribbble-project
    cd repository
 
-   
+   pip install -r requirements.txt
+
